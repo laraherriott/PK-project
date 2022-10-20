@@ -63,7 +63,7 @@ class Model:
         peripheral compartments are stored first, followed by the main compartment, and finally the dosing compartment
         (if it is present).
         """
-        dose = DoseFn(self, self.constinput, self.centerpoints, self.magnitudes)
+        dose = DoseFn(self.constinput, self.centerpoints, self.magnitudes)
         
 
         transitions = [0, 0]
