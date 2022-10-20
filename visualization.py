@@ -53,7 +53,7 @@ def visualization(all_solutions, all_specifications):
         #enumerate through all the solutions/models
         for k, sol in enumerate(all_solutions[:]):
             if Dose_type[k]:
-                plt.plot(sol.t, sol.y[-1, :], 
+                plt.plot(sol.t, sol.y[-1, :],
                          label=f'model{k+1}' + '-dose_comp'
                          )  # draw the dose compartment
                 plt.plot(sol.t, sol.y[-2, :], label=f'model{k+1}' + '-{}'
@@ -62,7 +62,7 @@ def visualization(all_solutions, all_specifications):
                                      ]
                                     ) + '- q_c')  # draw central compartment
                 if Perip_Comp[k]:  # if other peripheral compartments
-                    for i in range(1, Perip_Comp[k] + 1):
+                    for i in range(0, Perip_Comp[k]):
                         plt.plot(sol.t, sol.y[i:-2, :], label=f'model{k+1}' + '-{}'
                                     .format(Dose_match[Dose_type[k]]
                                             ) + '- q_p{}'.format(i))
@@ -72,7 +72,7 @@ def visualization(all_solutions, all_specifications):
                                     [Dose_type[k]
                                      ]) + '- q_c')  # draw the central compartment
                 if Perip_Comp[k]:  # if other peripheral compartments
-                    for i in range(1, Perip_Comp[k] + 1):
+                    for i in range(0, Perip_Comp[k]):
                         plt.plot(sol.t, sol.y[i:-1, :], label=f'model{k+1}' + '-{}'
                                     .format(Dose_match[Dose_type[k]]
                                             ) + '- q_p{}'.format(i))
@@ -98,7 +98,7 @@ def visualization(all_solutions, all_specifications):
                                     [Dose_type[k]
                                      ]) + '- q_c')  # draw the central compartment
                 if Perip_Comp[k]:  # if other peripheral compartments
-                    for i in range(1, Perip_Comp[k] + 1):
+                    for i in range(0, Perip_Comp[k]):
                         plt.plot(sol.t, sol.y[i:-2, :], label=f'model{k+1}' + '-{}'
                                     .format(Dose_match[Dose_type[k]]
                                             ) + '- q_p{}'.format(i))
@@ -108,7 +108,7 @@ def visualization(all_solutions, all_specifications):
                                     [Dose_type[k]
                                      ]) + '- q_c')  # draw the central compartment
                 if Perip_Comp[k]:  # if other peripheral compartments
-                    for i in range(1, Perip_Comp[k] + 1):
+                    for i in range(0, Perip_Comp[k]):
                         plt.plot(sol.t, sol.y[i:-1, :], label=f'model{k+1}' + '-{}'
                                     .format(Dose_match[Dose_type[k]]
                                             ) + '- q_p{}'.format(i))
@@ -134,7 +134,7 @@ def visualization(all_solutions, all_specifications):
                                         [Dose_type[k]
                                          ]) + '- q_c')  # draw the central compartment
                     if Perip_Comp[k]:  # if other peripheral compartments
-                        for i in range(1, Perip_Comp[k] + 1):
+                        for i in range(0, Perip_Comp[k]):
                             axs[0].plot(sol.t, sol.y[i:-2, :], label=f'model{k+1}' + '-{}'
                                         .format(Dose_match[Dose_type[k]]
                                                 ) + '- q_p{}'.format(i))
@@ -144,7 +144,7 @@ def visualization(all_solutions, all_specifications):
                                         [Dose_type[k]
                                          ]) + '- q_c')  # draw the central compartment
                     if Perip_Comp[k]:  # if other peripheral compartments
-                        for i in range(1, Perip_Comp[k] + 1):
+                        for i in range(0, Perip_Comp[k]):
                             axs[0].plot(sol.t, sol.y[i:-1, :], label=f'model{k+1}' + '-{}'
                                         .format(Dose_match[Dose_type[k]]
                                                 ) + '- q_p{}'.format(i))
@@ -158,7 +158,7 @@ def visualization(all_solutions, all_specifications):
                                         [Dose_type[k]
                                          ]) + '- q_c')  # draw the central compartment
                     if Perip_Comp[k]:  # if other peripheral compartments
-                        for i in range(1, Perip_Comp[k] + 1):
+                        for i in range(0, Perip_Comp[k]):
                             axs[1].plot(sol.t, sol.y[i:-2, :], label=f'model{k+1}' + '-{}'
                                         .format(Dose_match[Dose_type[k]]
                                                 ) + '- q_p{}'.format(i))
@@ -168,7 +168,7 @@ def visualization(all_solutions, all_specifications):
                                         [Dose_type[k]
                                          ]) + '- q_c')  # draw the central compartment
                     if Perip_Comp[k]:  # if other peripheral compartments
-                        for i in range(1, Perip_Comp[k] + 1):
+                        for i in range(0, Perip_Comp[k]):
                             axs[1].plot(sol.t, sol.y[i:-1, :], label=f'model{k+1}' + '-{}'
                                         .format(Dose_match[Dose_type[k]]
                                                 ) + '- q_p{}'.format(i))
