@@ -1,86 +1,96 @@
 #
 # Model class
 #
+
 import numpy as np
-class GaussConvFn():
-    """
-    This class represents the convolution of a delta function with Gaussian function
-    By Gaussian function we mean the pdf of Gaussian distribution.
-    The purpose of this function is build up a smooth function which is close to a delta function,
-    and enable the numerical solution of ODE using Runge-Kutta method.
-    Formally, Let us denote \rho(t)=A * \delta(t-t_center), where A is the magnitude
-    \omega(t) = \int \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{t^2}{2\sigma^2}},
-    then this class just represent \rho * \omega (t), where * is the convolution.
-    See the definition in https://en.wikipedia.org/wiki/Convolution for more information. 
-    
-    """
-    def __init__(self,center: float,magnitude: float,sigma=0.02):
-        """
-        params:
-        center: t_center
-        magnitude: magnitude in the delta function
-        sigma: sigma in the pdf of Gaussian distribution. 
-        
-        Note that sigma could not be too small, otherwise ODE solving might fail using Runge-Kutta method.
-            
-        """
-        self.center = center
-        self.magnitude = magnitude
-        self.sigma = sigma
+from scipy.integrate import odeint
+import matplotlib.pyplot as plt
 
-    def eval_at(self,x:float) -> float:
-        '''
-        return the value of this function at x 
-        '''
-        return self.magnitude / (2 * np.pi) ** 0.5 / self.sigma * np.exp(-(x-self.center)**2/(2 * self.sigma ** 2))
+from dose import GaussConvFn, DoseFn
 
-class DoseFn():
-    """
-    This class represents the dose function in the ODE.
-    The dose function DOSE(t) should be a linear combination of several pseudo delta function(see GaussConvFn),
-    plus a constant value.
-    It represents consist of instantaneous doses of X ng of the drug at one or more time points,
-    or a steady application of X ng per hour over a given time period, or some combination.
-    
-    Building up an object needs to specify:
-    the stead application dose (constinput)
-    A list of instantaneous dosing time and quantity (centerpoints & magnitudes)
-    """
-    def __init__(self,constinput=0,centerpoints=None,magnitudes=None):
-        '''
-        params:
-        constinput: the steady dose, by default set to 0
-        centerpoints: time point of instantaneous doses, should be a list
-        magnitudes: amount of instantaneous doses, should be a list (length equal to centerpoints)
-        '''
-        self.constinput = constinput
-        self.deltainput = []
-        if centerpoints is not None:
-            if len(centerpoints) == len(magnitudes):
-                for i in range(len(centerpoints)):
-                    self.deltainput.append(GaussConvFn(centerpoints[i],magnitudes[i]))
-            else:
-                raise ValueError('The length of centerpoints and magnitudes list should be the same!')
-
-    def eval_at(self,x):
-        '''
-        Return the dose function value at x
-        '''
-        result = self.constinput
-        for i in range(len(self.deltainput)):
-            result += self.deltainput[i].eval_at(x)
-
-        return result
 class Model:
     """A Pharmokinetic (PK) model
-
     Parameters
     ----------
+    comp_num: integer
+        States the number of peripheral compartments to be included.
+        
+    V_c: float
+        Specifies the volume of the central compartment.
 
-    value: numeric, optional
-        an example paramter
+    V_p: list
+        Specifies the volumes of the peripheral compartments. If no peripheral compartments are needed, input an empty list.
+
+    Q_p: list
+        Specifies the transition rates between the central compartment and any peripheral compartments. If no peripheral compartments are needed, input an empty list.
+
+    CL: float
+        Specifies the clearance/elimination rate for the central compartment.
+
+    dose_comp: integer, optional
+        If a dose compartment is to be included, input dose_comp as the value of k_a. If no value is given, a dose compartment will not be included.
+
+    constinput, centerpoints, magnitude: see Dose Class documentation.
 
     """
-    def __init__(self, value=42):
-        self.value = value
+    def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, dose_comp=0, constinput=0, centerpoints=None, magnitudes=None):
+        """Initialises the class, and allows each of the input parameters to be used in other methods. """
+        self.comp_num = comp_num
+        self.V_c = V_c
+        self.V_p = V_p
+        self.Q_p = Q_p
+        self.CL = CL
+        self.dose_comp = dose_comp
+        self.constinput = constinput
+        self.centerpoints = centerpoints
+        self.magnitudes = magnitudes
 
+    
+    
+    @property
+    def total_comp(self):
+        """This property provides the total number of compartments present in the model."""
+        if self.dose_comp > 0:
+            total_number = self.comp_num + 2
+        else:
+            total_number = self.comp_num + 1
+        return total_number
+
+
+    def equations(self, y, t):
+        """This function generates the right hand sides for the differential equations to be solved.
+        The function returns one list containing the right hand sides. The equations corresponding to the 
+        peripheral compartments are stored first, followed by the main compartment, and finally the dosing compartment
+        (if it is present).
+        """
+        dose = DoseFn(self, self.constinput, self.centerpoints, self.magnitudes)
+        
+
+        transitions = [0, 0]
+        dYdt = [0,0,0,0]
+        for i in range(0, self.comp_num):
+            transition = (self.Q_p[i] * (y[self.comp_num] / self.V_c - y[i] / self.V_p[i]))
+            transitions.append(transition)
+            dYdt[i] = (transition)
+
+        for i in range(self.comp_num,2):
+            dYdt.pop(i)
+
+        if self.dose_comp == 0:
+            dYdt[self.comp_num] =  (dose.eval_at(t) - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
+            dYdt.pop(-1)
+        elif self.dose_comp > 0:
+            dYdt[self.comp_num] =  (self.dose_comp * y[self.comp_num +1] - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
+            dYdt[self.comp_num +1] =  (dose.eval_at(t) - self.dose_comp * y[self.comp_num +1])
+
+        return dYdt
+    
+
+        
+
+
+            
+    
+        
+
+        
