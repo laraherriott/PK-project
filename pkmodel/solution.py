@@ -28,7 +28,7 @@ class Solution:
         """
         self.models = models
         self.t_eval = np.linspace(t_0, t_end, numsteps)
-        
+
         if self.y0 is None:
             self.y0 = [0.0]*model.total_comp
         else:
@@ -46,8 +46,8 @@ class Solution:
         all_solutions = []
         all_specifications = []
         for model in self.models:
-        
-            solution = scipy.integrate.solve_ivp(fun=lambda t, y: model.equations(t, y), t_span=[self.t_eval[0], self.t_eval[-1]], y0=self.y0, t_eval=self.t_eval)
+
+            solution = scipy.integrate.solve_ivp(fun=lambda t, y: model.equations(y, t), t_span=[self.t_eval[0], self.t_eval[-1]], y0=self.y0, t_eval=self.t_eval)
             specifications = [model.comp_num, model.constinput, model.dose_comp]
 
             all_solutions.append(solution)
