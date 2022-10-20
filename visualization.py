@@ -24,7 +24,7 @@ def visualization(all_solutions, all_specifications):
     else:
         ProtocolHybrid = 1
 
-    # Map the information from a number to actutal meaning to be shown on fig
+    # Map the information from a number to actutal meaning to be shown on figures
     Dose_match = {0: 'intravenous bolus', 1: 'subcutaneous'}
     Protocol_match = {0: 'Delta', 1: 'Continuous'}
 
