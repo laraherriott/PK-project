@@ -11,3 +11,5 @@ from .version_info import VERSION_INT, VERSION  # noqa
 from .model import Model    # noqa
 from .protocol import Protocol    # noqa
 from .solution import Solution     # noqa
+from .dose import GaussConvFn
+from .dose import DoseFn
