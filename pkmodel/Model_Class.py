@@ -30,6 +30,7 @@ class Model:
     dose_comp: integer, optional
         If a dose compartment is to be included, input dose_comp as the value of k_a. If no value is given, a dose compartment will not be included.
 
+    constinput, centerpoints, magnitude: see Dose Class documentation.
 
     """
     def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, dose_comp=0, constinput=0, centerpoints=None, magnitudes=None):
