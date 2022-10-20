@@ -6,7 +6,7 @@ import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 
-from pkmodel.dose import GaussConvFn, DoseFn
+from dose import GaussConvFn, DoseFn
 
 class Model:
     """A Pharmokinetic (PK) model
@@ -56,7 +56,7 @@ class Model:
         return total_number
 
 
-    def equations(self, t, y):
+    def equations(self, y, t):
         """This function generates the right hand sides for the differential equations to be solved.
         The function returns one list containing the right hand sides. The equations corresponding to the 
         peripheral compartments are stored first, followed by the main compartment, and finally the dosing compartment
