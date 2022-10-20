@@ -1,7 +1,9 @@
 #
-# Model class
+# Dose Class
 #
+
 import numpy as np
+
 class GaussConvFn():
     """
     This class represents the convolution of a delta function with Gaussian function
@@ -71,16 +73,3 @@ class DoseFn():
             result += self.deltainput[i].eval_at(x)
 
         return result
-class Model:
-    """A Pharmokinetic (PK) model
-
-    Parameters
-    ----------
-
-    value: numeric, optional
-        an example paramter
-
-    """
-    def __init__(self, value=42):
-        self.value = value
-
