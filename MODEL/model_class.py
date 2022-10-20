@@ -31,7 +31,7 @@ class Model:
 
 
     """
-    def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, dose_comp=0, constinput=0, centerpoints=None, magnitudes=None, x):
+    def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, x, dose_comp=0, constinput=0, centerpoints=None, magnitudes=None):
         """Initialises the class, and allows each of the input parameters to be used in other methods. """
         self.comp_num = comp_num
         self.V_c = V_c
