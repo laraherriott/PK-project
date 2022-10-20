@@ -6,7 +6,7 @@ import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 
-from PK-project/pkmodel/dose.py import GaussConvFn, DoseFn
+from pkmodel/dose.py import GaussConvFn, DoseFn
 
 class Model:
     """A Pharmokinetic (PK) model
