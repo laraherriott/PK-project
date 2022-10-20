@@ -31,7 +31,7 @@ class Model:
 
 
     """
-    def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, dose_comp=0):
+    def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, dose_comp=0, constinput=0, centerpoints=None, magnitudes=None, x):
         """Initialises the class, and allows each of the input parameters to be used in other methods. """
         self.comp_num = comp_num
         self.V_c = V_c
@@ -40,6 +40,7 @@ class Model:
         self.CL = CL
         self.dose_comp = dose_comp
 
+    
     
     @property
     def total_comp(self):
@@ -51,7 +52,7 @@ class Model:
         return total_number
 
 
-    def equations(self, y):
+    def equations(self, t, y):
         """This function generates the right hand sides for the differential equations to be solved.
         The function returns one list containing the right hand sides. The equations corresponding to the 
         peripheral compartments are stored first, followed by the main compartment, and finally the dosing compartment
@@ -69,11 +70,11 @@ class Model:
             dYdt.pop(i)
 
         if self.dose_comp == 0:
-            dYdt[self.comp_num] =  (Dose - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
+            dYdt[self.comp_num] =  (Dose(t) - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
             dYdt.pop(-1)
         elif self.dose_comp > 0:
             dYdt[self.comp_num] =  (self.dose_comp * y[self.comp_num +1] - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
-            dYdt[self.comp_num +1] =  (Dose - self.dose_comp * y[self.comp_num +1])
+            dYdt[self.comp_num +1] =  (Dose(t) - self.dose_comp * y[self.comp_num +1])
 
         return dYdt
     
