@@ -65,6 +65,7 @@ def visualization(all_solutions, all_specifications):
                   .format(Protocol_match[Protocol[0]]))
         plt.ylabel('drug mass [ng]')
         plt.xlabel('time [h]')
+        plt.savefig('model_visual.png')
         plt.show()
 
     #If the protocol is hybrid, draw a figure
@@ -104,6 +105,7 @@ def visualization(all_solutions, all_specifications):
         axs[1].set_ylabel('drug mass [ng]')
         axs[0].legend()
         axs[1].legend()
+        plt.savefig('model_visual.png')
         plt.show()
 
 
