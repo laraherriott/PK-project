@@ -6,6 +6,7 @@ import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
 
+from dose.py import GaussConvFn, DoseFn
 
 class Model:
     """A Pharmokinetic (PK) model
@@ -31,7 +32,7 @@ class Model:
 
 
     """
-    def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, x, dose_comp=0, constinput=0, centerpoints=None, magnitudes=None):
+    def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, dose_comp=0, constinput=0, centerpoints=None, magnitudes=None):
         """Initialises the class, and allows each of the input parameters to be used in other methods. """
         self.comp_num = comp_num
         self.V_c = V_c
@@ -39,6 +40,9 @@ class Model:
         self.Q_p = Q_p
         self.CL = CL
         self.dose_comp = dose_comp
+        self.constinput = constinput
+        self.centerpoints = centerpoints
+        self.magnitudes = magnitudes
 
     
     
@@ -58,7 +62,9 @@ class Model:
         peripheral compartments are stored first, followed by the main compartment, and finally the dosing compartment
         (if it is present).
         """
+        dose = DoseFn(self, self.constinput, self.centerpoints, self.magnitudes)
         
+
         transitions = [0, 0]
         dYdt = [0,0,0,0]
         for i in range(0, self.comp_num):
@@ -70,11 +76,11 @@ class Model:
             dYdt.pop(i)
 
         if self.dose_comp == 0:
-            dYdt[self.comp_num] =  (Dose(t) - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
+            dYdt[self.comp_num] =  (dose.eval_at(t) - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
             dYdt.pop(-1)
         elif self.dose_comp > 0:
             dYdt[self.comp_num] =  (self.dose_comp * y[self.comp_num +1] - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
-            dYdt[self.comp_num +1] =  (Dose(t) - self.dose_comp * y[self.comp_num +1])
+            dYdt[self.comp_num +1] =  (dose.eval_at(t) - self.dose_comp * y[self.comp_num +1])
 
         return dYdt
     
