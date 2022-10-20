@@ -14,7 +14,7 @@ class Model:
     ----------
     comp_num: integer
         States the number of peripheral compartments to be included.
-        
+
     V_c: float
         Specifies the volume of the central compartment.
 
@@ -45,8 +45,8 @@ class Model:
         self.centerpoints = centerpoints
         self.magnitudes = magnitudes
 
-    
-    
+
+
     @property
     def total_comp(self):
         """This property provides the total number of compartments present in the model."""
@@ -57,14 +57,14 @@ class Model:
         return total_number
 
 
-    def equations(self, y, t):
+    def equations(self, t, y):
         """This function generates the right hand sides for the differential equations to be solved.
-        The function returns one list containing the right hand sides. The equations corresponding to the 
+        The function returns one list containing the right hand sides. The equations corresponding to the
         peripheral compartments are stored first, followed by the main compartment, and finally the dosing compartment
         (if it is present).
         """
         dose = DoseFn(self.constinput, self.centerpoints, self.magnitudes)
-        
+
 
         transitions = [0, 0]
         dYdt = [0,0,0,0]
@@ -84,13 +84,3 @@ class Model:
             dYdt[self.comp_num +1] =  (dose.eval_at(t) - self.dose_comp * y[self.comp_num +1])
 
         return dYdt
-    
-
-        
-
-
-            
-    
-        
-
-        

@@ -24,31 +24,44 @@ class Solution:
             number of time steps
         y0: list, optional
             initial values in order: peripheral compartments, central compartment, dosage compartment
-            If no y0 is specified by the user, y0=0 for each equation.
         """
         self.models = models
         self.t_eval = np.linspace(t_0, t_end, numsteps)
-
-        if self.y0 is None:
-            self.y0 = [0.0]*model.total_comp
-        else:
-            self.y0 = y0
-
+        self.y0 = y0
 
     def generate_solutions(self):
         """
         Solve the model ODE for each model specified.
 
+        If no y0 is specified by the user, y0=0 for each equation
+
         return
         all_solutions: list containing the solution class for each model returned by scipy.integrate.solve_ivp
         all_specifications: list containing user specifications for each model, for visualisation
         """
+
         all_solutions = []
         all_specifications = []
         for model in self.models:
 
-            solution = scipy.integrate.solve_ivp(fun=lambda t, y: model.equations(y, t), t_span=[self.t_eval[0], self.t_eval[-1]], y0=self.y0, t_eval=self.t_eval)
-            specifications = [model.comp_num, model.constinput, model.dose_comp]
+            if self.y0 is None:
+                self.y0 = [0.0]*model.total_comp
+
+            solution = scipy.integrate.solve_ivp(fun=lambda t, y: model.equations(t, y), t_span=[self.t_eval[0], self.t_eval[-1]], y0=self.y0, t_eval=self.t_eval)
+
+            if model.constinput != 0:
+                protcol=1
+            else:
+                protocol=0
+
+
+            if model.dose_comp != 0:
+                dose_type = 1
+            else:
+                dose_type = 0
+
+            specifications = [model.comp_num, dose_type, protocol]
+
 
             all_solutions.append(solution)
             all_specifications.append(specifications)
