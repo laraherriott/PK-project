@@ -12,7 +12,7 @@ class Solution:
     """A Pharmokinetic (PK) model solution
     """
 
-    def __init__(self, models: list, t_0=0, t_end=1, numsteps=1001, y0=None):
+    def __init__(self, models: list, t_0=0, t_end=1, numsteps=1001, y0=[0.0]):
         """
         params:
         models: list of model objects
@@ -44,13 +44,15 @@ class Solution:
         all_specifications = []
         for model in self.models:
 
-            if self.y0 is None:
+            if self.y0 == [0.0]:
+                self.y0 = [0.0]*model.total_comp
+            if len(self.y0) != model.total_comp:
                 self.y0 = [0.0]*model.total_comp
 
             solution = scipy.integrate.solve_ivp(fun=lambda t, y: model.equations(t, y), t_span=[self.t_eval[0], self.t_eval[-1]], y0=self.y0, t_eval=self.t_eval)
 
             if model.constinput != 0:
-                protcol=1
+                protocol=1
             else:
                 protocol=0
 
