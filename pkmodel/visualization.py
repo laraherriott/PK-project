@@ -26,7 +26,6 @@ def visualization(all_solutions, all_specifications):
         -------
         None
     """
-    print(all_specifications)
     Perip_Comp = []
     Dose_type = []
     Protocol = []
@@ -183,7 +182,3 @@ def visualization(all_solutions, all_specifications):
         axs[1].legend()
         plt.savefig('model_specific_visual.png')
         plt.show()
-
-
-
-
