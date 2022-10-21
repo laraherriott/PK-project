@@ -1,3 +1,5 @@
+[![Documentation Status](https://readthedocs.org/projects/pharmacokinetics/badge/?version=latest)](https://pharmacokinetics.readthedocs.io/en/latest/?badge=latest)
+
 [![Run unit tests](https://github.com/laraherriott/PK-project/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/laraherriott/PK-project/actions/workflows/unit-tests.yml)
 
 [![Run on multiple OS](https://github.com/laraherriott/PK-project/actions/workflows/os-tests.yml/badge.svg)](https://github.com/laraherriott/PK-project/actions/workflows/os-tests.yml)
