@@ -1,7 +1,5 @@
-#
-# Model class
-#
-from .dose import DoseFn
+
+from dose import DoseFn
 
 
 class Model:
@@ -11,19 +9,20 @@ class Model:
     comp_num: integer
         States the number of peripheral compartments to be included.
     V_c: float
-        Specifies the volume of the central compartment.
+        Specifies the volume of the central compartment, as a nonnegative value.
     V_p: list
         Specifies the volumes of the peripheral compartments. If no peripheral compartments are needed, input an empty list.
     Q_p: list
         Specifies the transition rates between the central compartment and any peripheral compartments. If no peripheral compartments are needed, input an empty list.
     CL: float
-        Specifies the clearance/elimination rate for the central compartment.
+        Specifies the clearance/elimination rate for the central compartment, which shoul be nonnegative.
     dose_comp: integer, optional
         If a dose compartment is to be included, input dose_comp as the value of k_a. If no value is given, a dose compartment will not be included.
+        This should be a nonnegative value.
     constinput, centerpoints, magnitude: see Dose Class documentation.
     """
     def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, dose_comp=0, constinput=0, centerpoints=None, magnitudes=None):
-        """Initialises the class, and allows each of the input parameters to be used in other methods. """
+        """Initialises the class, and allows each of the input parameters to be used in other methods."""
         self.comp_num = comp_num
         self.V_c = V_c
         self.V_p = V_p
@@ -35,7 +34,7 @@ class Model:
         self.magnitudes = magnitudes
 
         if not ((comp_num == 0 or comp_num == 1 or comp_num == 2)):
-            print(f'Invalid Form of Arguments - comp_num:{type(self.comp_num)}')
+            print(f'Invalid arguments - comp_num:{type(self.comp_num)}')
             raise TypeError('Incompatible parameter types, comp_num must be 0, 1 or 2.')
 
         if (len(V_p) != comp_num) or (len(Q_p) != comp_num):
@@ -43,7 +42,7 @@ class Model:
             raise IndexError('Incompatible list lengths, V_p and Q_p need to be lists of length comp_num.')
 
         if not ((isinstance(V_c, float) or isinstance(V_c, int)) and V_c >= 0):
-            print(f'Invalid Form of Arguments - V_c:{type(self.V_c)}')
+            print(f'Invalid Form arguments - V_c:{type(self.V_c)}')
             raise TypeError('Incompatible parameter types, V_c must be a nonnegative number')
 
     @property
