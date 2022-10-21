@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Oct 19 15:30:38 2022
-
-@author: HP ZBOOK
-"""
-
 import matplotlib.pylab as plt
-
 
 def visualization(all_solutions, all_specifications):
     """
@@ -17,6 +10,7 @@ def visualization(all_solutions, all_specifications):
         all_solutions : List
             List of the solution of models containing
             the time and the drug mass vaules
+
         all_specifications : List
             The list of lists (with three integers per list)
             that specify how many peripheral componets, which
@@ -26,7 +20,6 @@ def visualization(all_solutions, all_specifications):
         -------
         None
     """
-    print(all_specifications)
     Perip_Comp = []
     Dose_type = []
     Protocol = []

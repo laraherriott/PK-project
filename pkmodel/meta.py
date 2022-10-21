@@ -40,7 +40,6 @@ class Solution:
     def __init__(self, models, protocols, t_eval, y0=None):
         self.models = models
         self.protocols = protocols
-        self.paired =
         self.t_eval = t_eval
         self.y0 = y0
 
