@@ -1,5 +1,6 @@
 [![Run unit tests](https://github.com/laraherriott/PK-project/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/laraherriott/PK-project/actions/workflows/unit-tests.yml)
 
+[![Run on multiple OS](https://github.com/laraherriott/PK-project/actions/workflows/os-tests.yml/badge.svg)](https://github.com/laraherriott/PK-project/actions/workflows/os-tests.yml)
 
 # 2022 Software Engineering Project - Pharmacokinetics
 This project contains a Python project to set-up, solve and visualise pharmacokinetic models.
