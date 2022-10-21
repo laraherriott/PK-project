@@ -10,7 +10,14 @@ Welcome to Pk-model's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-hello world 
+.. automodule:: dose
+   :members:
+.. automodule:: model
+   :members:
+.. automodule:: solution
+   :members:
+.. automodule:: visualization
+   :members:
 
 Indices and tables
 ==================
