@@ -6,12 +6,21 @@
 import numpy as np
 import scipy.integrate
 
-
 class Solution:
-
-    """A Pharmokinetic (PK) model solution
+    """A Pharmokinetic (PK) model solution,
+    running from t_0 to t_end with N time steps
     """
-
+    def __init__(self, t_0=0, t_end=1, numsteps=1001):
+        '''
+        params:
+        t_0: start time
+        t_end: end time
+        numsteps: number of time steps
+        '''
+        self.t_0 = t_0
+        self.t_end = t_end
+        self.numsteps = numsteps
+        
     def __init__(self, models: list, t_0=0, t_end=1, numsteps=1001, y0=[0.0]):
         """
         params:
@@ -64,8 +73,11 @@ class Solution:
 
             specifications = [model.comp_num, dose_type, protocol]
 
-
             all_solutions.append(solution)
             all_specifications.append(specifications)
 
         return all_solutions, all_specifications
+
+
+
+
