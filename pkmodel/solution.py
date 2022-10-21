@@ -12,16 +12,6 @@ class Solution:
     """A Pharmokinetic (PK) model solution,
     running from t_0 to t_end with N time steps
     """
-    def __init__(self, t_0=0, t_end=1, numsteps=1001):
-        '''
-        params:
-        t_0: start time
-        t_end: end time
-        numsteps: number of time steps
-        '''
-        self.t_0 = t_0
-        self.t_end = t_end
-        self.numsteps = numsteps
 
     def __init__(self, models: list, t_0=0, t_end=1, numsteps=1001, y0=[0.0]):
         """
@@ -60,11 +50,11 @@ class Solution:
         count = 0
         for model in self.models:
             if self.y0 == [0.0]:
-                self.y0 = [0.0]*model.total_comp
+                self.y0 = [0.0] * model.total_comp
             if len(self.y0) != model.total_comp:
                 if count == 0:
                     warnings.warn("The specified y0 array does not match the number of model compartments, y0 for all compartments has been taken as 0")
-                self.y0 = [0.0]*model.total_comp
+                self.y0 = [0.0] * model.total_comp
 
             solution = scipy.integrate.solve_ivp(fun=lambda t, y: model.equations(t, y), t_span=[self.t_eval[0], self.t_eval[-1]], y0=self.y0, t_eval=self.t_eval)
 
@@ -72,7 +62,6 @@ class Solution:
                 protocol = 1
             else:
                 protocol = 0
-
 
             if model.dose_comp != 0:
                 dose_type = 1

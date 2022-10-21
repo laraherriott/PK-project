@@ -1,7 +1,8 @@
 #
 # Model class
 #
-from dose import GaussConvFn, DoseFn
+from dose import DoseFn
+
 
 class Model:
     """A Pharmokinetic (PK) model
@@ -33,15 +34,15 @@ class Model:
         self.centerpoints = centerpoints
         self.magnitudes = magnitudes
 
-        if not((comp_num == 0 or comp_num == 1 or comp_num ==2)):
+        if not ((comp_num == 0 or comp_num == 1 or comp_num == 2)):
             print(f'Invalid Form of Arguments - comp_num:{type(self.comp_num)}')
             raise TypeError('Incompatible parameter types, comp_num must be 0, 1 or 2.')
 
         if (len(V_p) != comp_num) or (len(Q_p) != comp_num):
-            print(f'V_p and Q_p need to be lists of length comp_num')
+            print(f'{"V_p and Q_p need to be lists of length comp_num"}')
             raise IndexError('Incompatible list lengths, V_p and Q_p need to be lists of length comp_num.')
 
-        if not((isinstance(V_c, float) or isinstance(V_c, int)) and V_c >=0):
+        if not ((isinstance(V_c, float) or isinstance(V_c, int)) and V_c >= 0):
             print(f'Invalid Form of Arguments - V_c:{type(self.V_c)}')
             raise TypeError('Incompatible parameter types, V_c must be a nonnegative number')
 
@@ -54,7 +55,6 @@ class Model:
             total_number = self.comp_num + 1
         return total_number
 
-
     def equations(self, t, y):
         """This function generates the right hand sides for the differential equations to be solved.
         The function returns one list containing the right hand sides. The equations corresponding to the
@@ -63,22 +63,21 @@ class Model:
         """
         dose = DoseFn(self.constinput, self.centerpoints, self.magnitudes)
 
-
         transitions = [0, 0]
-        dYdt = [0,0,0,0]
+        dYdt = [0, 0, 0, 0]
         for i in range(0, self.comp_num):
             transition = (self.Q_p[i] * (y[self.comp_num] / self.V_c - y[i] / self.V_p[i]))
             transitions.append(transition)
             dYdt[i] = (transition)
 
-        for i in range(self.comp_num,2):
+        for i in range(self.comp_num, 2):
             dYdt.pop(i)
 
         if self.dose_comp == 0:
-            dYdt[self.comp_num] =  (dose.eval_at(t) - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
+            dYdt[self.comp_num] = (dose.eval_at(t) - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
             dYdt.pop(-1)
         elif self.dose_comp > 0:
-            dYdt[self.comp_num] =  (self.dose_comp * y[self.comp_num +1] - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
-            dYdt[self.comp_num +1] =  (dose.eval_at(t) - self.dose_comp * y[self.comp_num +1])
+            dYdt[self.comp_num] = (self.dose_comp * y[self.comp_num + 1] - y[self.comp_num] * self.CL / self.V_c - transitions[-1] - transitions[-2])
+            dYdt[self.comp_num + 1] = (dose.eval_at(t) - self.dose_comp * y[self.comp_num + 1])
 
         return dYdt

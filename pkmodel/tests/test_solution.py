@@ -1,8 +1,6 @@
 import unittest
-import numpy as np
 import warnings
 from pkmodel.solution import Solution
-from pkmodel.dose import DoseFn
 from pkmodel.model import Model
 
 
@@ -47,7 +45,7 @@ class SolutionTest(unittest.TestCase):
         a = Solution(models, 0, 10, y0=[0.0, 0.0])
         a.generate_solutions()
 
-        with warnings.catch_warnings(record=True) as w:
+        with warnings.catch_warnings(record=True):
             self.assertEqual(len(a.y0), model.total_comp)
 
     def test_list(self):
