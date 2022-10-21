@@ -1,7 +1,3 @@
-#
-# Dose Class
-#
-
 import numpy as np
 
 
