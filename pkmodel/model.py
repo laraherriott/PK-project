@@ -15,7 +15,17 @@ class Model:
         self.centerpoints = centerpoints
         self.magnitudes = magnitudes
 
+        if not((comp_num == 0 or comp_num == 1 or comp_num ==2)):
+            print(f'Invalid Form of Arguments - comp_num:{type(self.comp_num)}')
+            raise TypeError('Incompatible parameter types, comp_num must be 0, 1 or 2.')
 
+        if (len(V_p) != comp_num) or (len(Q_p) != comp_num):
+            print(f'V_p and Q_p need to be lists of length comp_num')
+            raise IndexError('Incompatible list lengths, V_p and Q_p need to be lists of length comp_num.')
+
+        if not((isinstance(V_c, float) or isinstance(V_c, int)) and V_c >=0):
+            print(f'Invalid Form of Arguments - V_c:{type(self.V_c)}')
+            raise TypeError('Incompatible parameter types, V_c must be a nonnegative number')
 
     @property
     def total_comp(self):
