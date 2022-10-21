@@ -5,6 +5,7 @@
 
 import numpy as np
 import scipy.integrate
+import warnings
 
 
 class Solution:
@@ -25,7 +26,11 @@ class Solution:
         y0: list, optional
             initial values in order: peripheral compartments, central compartment, dosage compartment
         """
-        self.models = models
+
+        if isinstance(models, list):
+            self.models = models
+        else:
+            self.models = [models]
         self.t_eval = np.linspace(t_0, t_end, numsteps)
         self.y0 = y0
 
@@ -42,19 +47,21 @@ class Solution:
 
         all_solutions = []
         all_specifications = []
+        count = 0
         for model in self.models:
-
             if self.y0 == [0.0]:
                 self.y0 = [0.0]*model.total_comp
             if len(self.y0) != model.total_comp:
+                if count == 0:
+                    warnings.warn("The specified y0 array does not match the number of model compartments, y0 for all compartments has been taken as 0")
                 self.y0 = [0.0]*model.total_comp
 
             solution = scipy.integrate.solve_ivp(fun=lambda t, y: model.equations(t, y), t_span=[self.t_eval[0], self.t_eval[-1]], y0=self.y0, t_eval=self.t_eval)
 
             if model.constinput != 0:
-                protocol=1
+                protocol = 1
             else:
-                protocol=0
+                protocol = 0
 
 
             if model.dose_comp != 0:
@@ -67,5 +74,6 @@ class Solution:
 
             all_solutions.append(solution)
             all_specifications.append(specifications)
+            count += 1
 
         return all_solutions, all_specifications
