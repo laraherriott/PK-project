@@ -33,7 +33,7 @@ class GaussConvFn():
         '''
         Return the value of this function at x.
         '''
-        return self.magnitude / (2 * np.pi) ** 0.5 / self.sigma * np.exp(-(x-self.center)**2/(2 * self.sigma ** 2))
+        return self.magnitude / (2 * np.pi) ** 0.5 / self.sigma * np.exp(-(x - self.center)**2 / (2 * self.sigma ** 2))
 
 
 class DoseFn():

@@ -64,7 +64,7 @@ def visualization(all_solutions, all_specifications):
                     for i in range(0, Perip_Comp[k]):
                         plt.plot(sol.t, sol.y[i, :], label=f'model{k+1}' + '-{}'
                                     .format(Dose_match[Dose_type[k]]
-                                            ) + '- q_p{}'.format(i+1))
+                                            ) + '- q_p{}'.format(i + 1))
             else:
                 plt.plot(sol.t, sol.y[-1, :], label=f'model{k+1}' + '-{}'
                             .format(Dose_match
@@ -74,7 +74,7 @@ def visualization(all_solutions, all_specifications):
                     for i in range(0, Perip_Comp[k]):
                         plt.plot(sol.t, sol.y[i, :], label=f'model{k+1}' + '-{}'
                                     .format(Dose_match[Dose_type[k]]
-                                            ) + '- q_p{}'.format(i+1))
+                                            ) + '- q_p{}'.format(i + 1))
         plt.legend(bbox_to_anchor=(1.05, 1), loc='best')
         plt.title('The model comparision with {} protocol'
                   .format(Protocol_match[Protocol[0]]))
@@ -100,7 +100,7 @@ def visualization(all_solutions, all_specifications):
                     for i in range(0, Perip_Comp[k]):
                         plt.plot(sol.t, sol.y[i, :], label=f'model{k+1}' + '-{}'
                                     .format(Dose_match[Dose_type[k]]
-                                            ) + '- q_p{}'.format(i+1))
+                                            ) + '- q_p{}'.format(i + 1))
             else:
                 plt.plot(sol.t, sol.y[-1, :], label=f'model{k+1}' + '-{}'
                             .format(Dose_match
@@ -110,7 +110,7 @@ def visualization(all_solutions, all_specifications):
                     for i in range(0, Perip_Comp[k]):
                         plt.plot(sol.t, sol.y[i, :], label=f'model{k+1}' + '-{}'
                                     .format(Dose_match[Dose_type[k]]
-                                            ) + '- q_p{}'.format(i+1))
+                                            ) + '- q_p{}'.format(i + 1))
         plt.legend(bbox_to_anchor=(1.05, 1), loc='best')
         plt.title('The model comparision with {} protocol'
                   .format(Protocol_match[Protocol[0]]))
@@ -136,7 +136,7 @@ def visualization(all_solutions, all_specifications):
                         for i in range(0, Perip_Comp[k]):
                             axs[0].plot(sol.t, sol.y[i, :], label=f'model{k+1}' + '-{}'
                                         .format(Dose_match[Dose_type[k]]
-                                                ) + '- q_p{}'.format(i+1))
+                                                ) + '- q_p{}'.format(i + 1))
                 else:
                     axs[0].plot(sol.t, sol.y[-1, :], label=f'model{k+1}' + '-{}'
                                 .format(Dose_match
@@ -146,7 +146,7 @@ def visualization(all_solutions, all_specifications):
                         for i in range(0, Perip_Comp[k]):
                             axs[0].plot(sol.t, sol.y[i, :], label=f'model{k+1}' + '-{}'
                                         .format(Dose_match[Dose_type[k]]
-                                                ) + '- q_p{}'.format(i+1))
+                                                ) + '- q_p{}'.format(i + 1))
             elif Protocol[k] == 1:
 
                 if Dose_type[k]:
@@ -160,7 +160,7 @@ def visualization(all_solutions, all_specifications):
                         for i in range(0, Perip_Comp[k]):
                             axs[1].plot(sol.t, sol.y[i, :], label=f'model{k+1}' + '-{}'
                                         .format(Dose_match[Dose_type[k]]
-                                                ) + '- q_p{}'.format(i+1))
+                                                ) + '- q_p{}'.format(i + 1))
                 else:
                     axs[1].plot(sol.t, sol.y[-1, :], label=f'model{k+1}' + '-{}'
                                 .format(Dose_match
@@ -170,7 +170,7 @@ def visualization(all_solutions, all_specifications):
                         for i in range(0, Perip_Comp[k]):
                             axs[1].plot(sol.t, sol.y[i, :], label=f'model{k+1}' + '-{}'
                                         .format(Dose_match[Dose_type[k]]
-                                                ) + '- q_p{}'.format(i+1))
+                                                ) + '- q_p{}'.format(i + 1))
         axs[0].set_title('{} protocol'.format(Protocol_match[Protocol[0]]))
         axs[1].set_title('{} protocol'.format(Protocol_match[Protocol[1]]))
         axs[0].set_xlabel('time [h]')
