@@ -2,37 +2,7 @@
 # Model class
 #
 
-import numpy as np
-from scipy.integrate import odeint
-import matplotlib.pyplot as plt
-
-from dose import GaussConvFn, DoseFn
-
 class Model:
-    """A Pharmokinetic (PK) model
-    Parameters
-    ----------
-    comp_num: integer
-        States the number of peripheral compartments to be included.
-
-    V_c: float
-        Specifies the volume of the central compartment.
-
-    V_p: list
-        Specifies the volumes of the peripheral compartments. If no peripheral compartments are needed, input an empty list.
-
-    Q_p: list
-        Specifies the transition rates between the central compartment and any peripheral compartments. If no peripheral compartments are needed, input an empty list.
-
-    CL: float
-        Specifies the clearance/elimination rate for the central compartment.
-
-    dose_comp: integer, optional
-        If a dose compartment is to be included, input dose_comp as the value of k_a. If no value is given, a dose compartment will not be included.
-
-    constinput, centerpoints, magnitude: see Dose Class documentation.
-
-    """
     def __init__(self, comp_num: int, V_c: float, V_p: list, Q_p: list, CL: float, dose_comp=0, constinput=0, centerpoints=None, magnitudes=None):
         """Initialises the class, and allows each of the input parameters to be used in other methods. """
         self.comp_num = comp_num
