@@ -105,7 +105,7 @@ def visualization(all_solutions, all_specifications):
                         plt.plot(sol.t, sol.y[i, :], label=f'model{k+1}' + '-{}'
                                     .format(Dose_match[Dose_type[k]]
                                             ) + '- q_p{}'.format(i + 1))
-        plt.legend(bbox_to_anchor=(1.05, 1), loc='best')
+        plt.legend()
         plt.title('The model comparision with {} protocol'
                   .format(Protocol_match[Protocol[0]]))
         plt.ylabel('drug mass [ng]')
