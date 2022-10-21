@@ -1,7 +1,8 @@
-import unittest
 import sys
 sys.path.append("..")
 from model import Model
+import unittest
+
 
 class ModelTest(unittest.TestCase):
 
@@ -33,6 +34,7 @@ class ModelTest(unittest.TestCase):
             Model(1, [3, 4], [1], [1], 9.0)
         with self.assertRaises(TypeError):
             Model(1, "Hello", [3], [4], 6)
+
 
 if __name__ == '__main__':
     unittest.main()
