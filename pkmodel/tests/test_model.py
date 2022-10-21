@@ -1,6 +1,4 @@
-import sys
-sys.path.append("..")
-from model import Model
+from pkmodel.model import Model
 import unittest
 
 
