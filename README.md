@@ -3,6 +3,13 @@
 
 # 2022 Software Engineering Project - Pharmacokinetics
 This project contains a Python project to set-up, solve and visualise pharmacokinetic models.
+
+## Authors
+- [Lara Herriott](https://github.com/laraherriott)
+- [Ruby Nixson](https://github.com/)
+- [Yiming Wei](https://github.com/)
+- [Simiao Zhao](https://github.com/)
+
 ## Purpose
 Pharmacokinetic problems are important to study for the purpose maintaining safe and effective drug concentrations in the body.
 This project allows for the building of models that split the body into a main compartment, an optional dosing compartment, and up to two peripheral compartments.
@@ -40,3 +47,4 @@ all_solutions, all_specifications = a.generate_solutions()
 
 visualization(all_solutions, all_specifications)
 ```
+<img src="/PK-project/pkmodel/model_specific_visual.png" alt="Example output" title="Example Output of the example code">
