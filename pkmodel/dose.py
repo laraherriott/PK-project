@@ -11,7 +11,7 @@ class GaussConvFn():
     \omega(t) = \int \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{t^2}{2\sigma^2}},
     then this class just represent \rho * \omega (t), where * is the convolution.
     See the definition in https://en.wikipedia.org/wiki/Convolution for more information.
-    """
+    """  
     def __init__(self, center: float, magnitude: float, sigma=0.02):
         """
         params:
@@ -33,6 +33,7 @@ class GaussConvFn():
 
 
 class DoseFn():
+
     """
     This class represents the dose function in the ODE.
     The dose function DOSE(t) should be a linear combination of several pseudo delta function(see GaussConvFn),
@@ -44,6 +45,7 @@ class DoseFn():
     the stead application dose (constinput)
     A list of instantaneous dosing time and quantity (centerpoints & magnitudes)
     """
+    
     def __init__(self, constinput=0, centerpoints=None, magnitudes=None):
         '''
         params:
@@ -51,6 +53,7 @@ class DoseFn():
         centerpoints: time point of instantaneous doses, should be a list
         magnitudes: amount of instantaneous doses, should be a list (length equal to centerpoints)
         '''
+
         self.constinput = constinput
         self.deltainput = []
         if centerpoints is not None:
@@ -64,6 +67,7 @@ class DoseFn():
         '''
         Return the dose function value at x
         '''
+        
         result = self.constinput
         for i in range(len(self.deltainput)):
             result += self.deltainput[i].eval_at(x)
