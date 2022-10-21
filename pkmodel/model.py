@@ -1,7 +1,7 @@
 #
 # Model class
 #
-from dose import DoseFn
+from .dose import DoseFn
 
 
 class Model:
