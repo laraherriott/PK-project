@@ -2,6 +2,8 @@
 
 [![Run on multiple OS](https://github.com/laraherriott/PK-project/actions/workflows/os-tests.yml/badge.svg)](https://github.com/laraherriott/PK-project/actions/workflows/os-tests.yml)
 
+[![codecov](https://codecov.io/gh/laraherriott/PK-project/branch/master/graph/badge.svg?token=T1IG316M0W)](https://codecov.io/gh/laraherriott/PK-project)
+
 # 2022 Software Engineering Project - Pharmacokinetics
 This project contains a Python project to set-up, solve and visualise pharmacokinetic models.
 
