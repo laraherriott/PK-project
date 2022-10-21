@@ -39,7 +39,7 @@ class SolutionTest(unittest.TestCase):
         Tests Warnings are being raised.
         """
 
-        model = Model(comp_num=1, V_c=3, V_p=[3], Q_p=[6], CL=7, constinput=5)
+        model = Model(comp_num=2, V_c=3, V_p=[3, 4], Q_p=[6, 9], CL=7, constinput=5)
         models = [model]
 
         a = Solution(models, 0, 10, y0=[0.0, 0.0])
