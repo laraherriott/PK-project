@@ -47,4 +47,4 @@ all_solutions, all_specifications = a.generate_solutions()
 
 visualization(all_solutions, all_specifications)
 ```
-![Example output]([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/laraherriott/PK-project/blob/2998fe1f579f84a9a6e0dd1a42066943854d3f62/pkmodel/model_specific_visual.png))
+![Example output](https://github.com/laraherriott/PK-project/blob/2998fe1f579f84a9a6e0dd1a42066943854d3f62/pkmodel/model_specific_visual.png)
