@@ -7,6 +7,7 @@ import numpy as np
 import scipy.integrate
 import warnings
 
+
 class Solution:
     """A Pharmokinetic (PK) model solution,
     running from t_0 to t_end with N time steps
@@ -21,7 +22,7 @@ class Solution:
         self.t_0 = t_0
         self.t_end = t_end
         self.numsteps = numsteps
-        
+
     def __init__(self, models: list, t_0=0, t_end=1, numsteps=1001, y0=[0.0]):
         """
         params:
@@ -85,7 +86,3 @@ class Solution:
             count += 1
 
         return all_solutions, all_specifications
-
-
-
-
