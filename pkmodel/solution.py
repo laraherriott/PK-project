@@ -54,11 +54,11 @@ class Solution:
             if len(self.y0) != model.total_comp:
                 if count == 0:
                     warnings.warn("The specified y0 array does not match the number of model compartments, ",
-                                    "y0 for all compartments has been taken as 0")
+                                  "y0 for all compartments has been taken as 0")
                 self.y0 = [0.0] * model.total_comp
 
             solution = scipy.integrate.solve_ivp(fun=lambda t, y: model.equations(t, y), t_span=[self.t_eval[0],
-                                                self.t_eval[-1]], y0=self.y0, t_eval=self.t_eval)
+                                                 self.t_eval[-1]], y0=self.y0, t_eval=self.t_eval)
 
             if model.constinput != 0:
                 protocol = 1
