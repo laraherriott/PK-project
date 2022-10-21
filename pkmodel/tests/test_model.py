@@ -34,5 +34,4 @@ class ModelTest(unittest.TestCase):
             Model(1, "Hello", [3], [4], 6)
 
 
-if __name__ == '__main__':
-    unittest.main()
+
