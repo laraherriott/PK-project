@@ -21,11 +21,24 @@ Intraveneous dosing provides a constant supply of drug to either the dosing comp
 On the other hand, subcutaneous dosing supplies the drug in instantaneous bursts of specified magnitudes, at specified points in time.
 
 ## Installation
-To install this package, we recommend that you first set up a virtual environment from the directory containing this file.
-
-Then install this project:
+To install this package, we recommend that you first clone this repository to your local machine. To do this, enter the following in the command line:
 ```bash
-pip install -e .[dev,docs]
+git clone https://github.com/laraherriott/PK-project.git
+cd PK-project
+```
+
+Then set up a virtual environment from the directory containing this file, and activate the virtual environment, using:
+
+```bash
+python3 -m pip install --user virtualenv
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Then install this project, after upgrading the build tools.
+```bash
+pip install --upgrade pip setuptools wheel
+pip install  .[dev,docs]
 ```
 
 ## Using the package
