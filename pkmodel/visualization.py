@@ -110,7 +110,7 @@ def visualization(all_solutions, all_specifications):
                   .format(Protocol_match[Protocol[0]]))
         plt.ylabel('drug mass [ng]')
         plt.xlabel('time [h]')
-        plt.savefig('model_general_visual.png')
+        plt.savefig('model_general_visual.png',bbox_inches = 'tight')
         plt.show()
 
         fig, axs = plt.subplots(1, 2, figsize=(10, 5),
@@ -173,5 +173,5 @@ def visualization(all_solutions, all_specifications):
         axs[1].set_ylabel('drug mass [ng]')
         axs[0].legend()
         axs[1].legend()
-        plt.savefig('model_specific_visual.png')
+        plt.savefig('model_specific_visual.png',bbox_inches = 'tight')
         plt.show()
