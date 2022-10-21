@@ -1,4 +1,5 @@
-from .dose import DoseFn
+from pkmodel.dose import DoseFn
+
 
 
 class Model:
