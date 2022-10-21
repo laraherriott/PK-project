@@ -36,6 +36,20 @@ class DoseTest(unittest.TestCase):
                           centerpoints=instan_dose_time,
                           magnitudes=instan_dose_magnitude)
 
-        self.assertEqual(function.eval_at(1.0), function.eval_at(3.0))
-        self.assertEqual(function.eval_at(0.0), 1.0)
-        self.assertEqual(function.eval_at(2.0), function.eval_at(1.0))
+        self.assertEqual(function.eval_at(1.0),function.eval_at(3.0))
+        self.assertEqual(function.eval_at(0.0),1.0)
+        self.assertEqual(function.eval_at(2.0),function.eval_at(1.0))
+    
+    def test_error(self):
+        """
+        Test the class DoseFn, if the list of center points and magnitudes
+        do not have the same length, then return an error
+        """
+        from pkmodel.dose import DoseFn
+        instan_dose_time = [1.0,2.0,3.0]
+        instan_dose_magnitude = [1.,1.]
+        constinput = 1.0
+        with self.assertRaises(ValueError) as context:
+            function = DoseFn(constinput=constinput,
+                          centerpoints=instan_dose_time,
+                          magnitudes=instan_dose_magnitude)
