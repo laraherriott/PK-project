@@ -6,9 +6,9 @@ This project contains a Python project to set-up, solve and visualise pharmacoki
 
 ## Authors
 - [Lara Herriott](https://github.com/laraherriott)
-- [Ruby Nixson](https://github.com/)
-- [Yiming Wei](https://github.com/)
-- [Simiao Zhao](https://github.com/)
+- [Ruby Nixson](https://github.com/rubynixson)
+- [Yiming Wei](https://github.com/weiym97)
+- [Simiao Zhao](https://github.com/SimiaoZhao)
 
 ## Purpose
 Pharmacokinetic problems are important to study for the purpose maintaining safe and effective drug concentrations in the body.
