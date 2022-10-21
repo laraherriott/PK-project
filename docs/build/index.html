@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Welcome to Pk-model’s documentation! &#8212; Pk-model 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Pk-model 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to Pk-model’s documentation!</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="welcome-to-pk-model-s-documentation">
+<h1>Welcome to Pk-model’s documentation!<a class="headerlink" href="#welcome-to-pk-model-s-documentation" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-dose"></span><dl class="py class">
+<dt class="sig sig-object py" id="dose.DoseFn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dose.</span></span><span class="sig-name descname"><span class="pre">DoseFn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constinput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centerpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitudes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dose.DoseFn" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class represents the dose function in the ODE.
+The dose function DOSE(t) should be a linear combination of several pseudo delta function(see GaussConvFn),
+plus a constant value.
+It represents consist of instantaneous doses of X ng of the drug at one or more time points,
+or a steady application of X ng per hour over a given time period, or some combination.</p>
+<p>Building up an object needs to specify:
+the stead application dose (constinput)
+A list of instantaneous dosing time and quantity (centerpoints &amp; magnitudes)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dose.DoseFn.eval_at">
+<span class="sig-name descname"><span class="pre">eval_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dose.DoseFn.eval_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dose function value at x</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dose.GaussConvFn">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dose.</span></span><span class="sig-name descname"><span class="pre">GaussConvFn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dose.GaussConvFn" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>This class represents the convolution of a delta function with Gaussian function
+By Gaussian function we mean the pdf of Gaussian distribution.
+The purpose of this function is build up a smooth function which is close to a delta function,
+and enable the numerical solution of ODE using Runge-Kutta method.
+Formally, Let us denote</p>
+</div></blockquote>
+<dl class="simple">
+<dt>ho(t)=A * delta(t-t_center), where A is the magnitude</dt><dd><p>omega(t) = int</p>
+</dd>
+</dl>
+<p>rac{1}{sqrt{2pi}sigma}e^{-
+rac{t^2}{2sigma^2}},</p>
+<blockquote>
+<div><p>then this class just represent</p>
+</div></blockquote>
+<dl class="simple">
+<dt>ho * omega (t), where * is the convolution.</dt><dd><p>See the definition in <a class="reference external" href="https://en.wikipedia.org/wiki/Convolution">https://en.wikipedia.org/wiki/Convolution</a> for more information.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="dose.GaussConvFn.eval_at">
+<span class="sig-name descname"><span class="pre">eval_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#dose.GaussConvFn.eval_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of this function at x.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-model"></span><dl class="py class">
+<dt class="sig sig-object py" id="model.Model">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.</span></span><span class="sig-name descname"><span class="pre">Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comp_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V_c</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V_p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q_p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CL</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dose_comp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constinput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centerpoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitudes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Pharmokinetic (PK) model
+Parameters
+———-
+comp_num: integer</p>
+<blockquote>
+<div><p>States the number of peripheral compartments to be included.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>V_c: float</dt><dd><p>Specifies the volume of the central compartment, as a nonnegative value.</p>
+</dd>
+<dt>V_p: list</dt><dd><p>Specifies the volumes of the peripheral compartments. If no peripheral compartments are needed, input an empty list.</p>
+</dd>
+<dt>Q_p: list</dt><dd><p>Specifies the transition rates between the central compartment and any peripheral compartments. If no peripheral compartments are needed, input an empty list.</p>
+</dd>
+<dt>CL: float</dt><dd><p>Specifies the clearance/elimination rate for the central compartment, which shoul be nonnegative.</p>
+</dd>
+<dt>dose_comp: integer, optional</dt><dd><p>If a dose compartment is to be included, input dose_comp as the value of k_a. If no value is given, a dose compartment will not be included.
+This should be a nonnegative value.</p>
+</dd>
+</dl>
+<p>constinput, centerpoints, magnitude: see Dose Class documentation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="model.Model.equations">
+<span class="sig-name descname"><span class="pre">equations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.equations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function generates the right hand sides for the differential equations to be solved.
+The function returns one list containing the right hand sides. The equations corresponding to the
+peripheral compartments are stored first, followed by the main compartment, and finally the dosing compartment
+(if it is present).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="model.Model.total_comp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">total_comp</span></span><a class="headerlink" href="#model.Model.total_comp" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property provides the total number of compartments present in the model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-protocol"></span><dl class="py class">
+<dt class="sig sig-object py" id="protocol.Protocol">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">protocol.</span></span><span class="sig-name descname"><span class="pre">Protocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">43</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#protocol.Protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Pharmokinetic (PK) protocol</p>
+<blockquote>
+<div><dl class="simple">
+<dt>value: numeric, optional</dt><dd><p>an example paramter</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<span class="target" id="module-solution"></span><dl class="py class">
+<dt class="sig sig-object py" id="solution.Solution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">solution.</span></span><span class="sig-name descname"><span class="pre">Solution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">models</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numsteps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.0]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solution.Solution" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Pharmokinetic (PK) model solution,
+running from t_0 to t_end with N time steps</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="solution.Solution.generate_solutions">
+<span class="sig-name descname"><span class="pre">generate_solutions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#solution.Solution.generate_solutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solve the model ODE for each model specified.</p>
+<p>If no y0 is specified by the user, y0=0 for each equation</p>
+<p>return
+all_solutions: list containing the solution class for each model returned by scipy.integrate.solve_ivp
+all_specifications: list containing user specifications for each model, for visualisation</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-version_info"></span><span class="target" id="module-visualization"></span><dl class="py function">
+<dt class="sig sig-object py" id="visualization.visualization">
+<span class="sig-prename descclassname"><span class="pre">visualization.</span></span><span class="sig-name descname"><span class="pre">visualization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_solutions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_specifications</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#visualization.visualization" title="Permalink to this definition">¶</a></dt>
+<dd><p>visualize the drug mass vs time of all model solutions</p>
+<blockquote>
+<div><dl class="simple">
+<dt>all_solutions<span class="classifier">List</span></dt><dd><p>List of the solution of models containing
+the time and the drug mass vaules</p>
+</dd>
+<dt>all_specifications<span class="classifier">List</span></dt><dd><p>The list of lists (with three integers per list)
+that specify how many peripheral componets, which
+dose and protocol type for each model.</p>
+</dd>
+</dl>
+<p>None</p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Welcome to Pk-model’s documentation!</a><ul>
+<li><a class="reference internal" href="#dose.DoseFn"><code class="docutils literal notranslate"><span class="pre">DoseFn</span></code></a><ul>
+<li><a class="reference internal" href="#dose.DoseFn.eval_at"><code class="docutils literal notranslate"><span class="pre">DoseFn.eval_at()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dose.GaussConvFn"><code class="docutils literal notranslate"><span class="pre">GaussConvFn</span></code></a><ul>
+<li><a class="reference internal" href="#dose.GaussConvFn.eval_at"><code class="docutils literal notranslate"><span class="pre">GaussConvFn.eval_at()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
+<li><a class="reference internal" href="#model.Model.equations"><code class="docutils literal notranslate"><span class="pre">Model.equations()</span></code></a></li>
+<li><a class="reference internal" href="#model.Model.total_comp"><code class="docutils literal notranslate"><span class="pre">Model.total_comp</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#protocol.Protocol"><code class="docutils literal notranslate"><span class="pre">Protocol</span></code></a></li>
+<li><a class="reference internal" href="#solution.Solution"><code class="docutils literal notranslate"><span class="pre">Solution</span></code></a><ul>
+<li><a class="reference internal" href="#solution.Solution.generate_solutions"><code class="docutils literal notranslate"><span class="pre">Solution.generate_solutions()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#visualization.visualization"><code class="docutils literal notranslate"><span class="pre">visualization()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Pk-model 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to Pk-model’s documentation!</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Lara, Ruby, Yiming, Sim.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    </div>
+  </body>
+</html>

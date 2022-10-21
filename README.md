@@ -1,5 +1,10 @@
+[![Documentation Status](https://readthedocs.org/projects/pharmacokinetics/badge/?version=latest)](https://pharmacokinetics.readthedocs.io/en/latest/?badge=latest)
+
 [![Run unit tests](https://github.com/laraherriott/PK-project/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/laraherriott/PK-project/actions/workflows/unit-tests.yml)
 
+[![Run on multiple OS](https://github.com/laraherriott/PK-project/actions/workflows/os-tests.yml/badge.svg)](https://github.com/laraherriott/PK-project/actions/workflows/os-tests.yml)
+
+[![codecov](https://codecov.io/gh/laraherriott/PK-project/branch/master/graph/badge.svg?token=T1IG316M0W)](https://codecov.io/gh/laraherriott/PK-project)
 
 # 2022 Software Engineering Project - Pharmacokinetics
 This project contains a Python project to set-up, solve and visualise pharmacokinetic models.
@@ -18,11 +23,24 @@ Intraveneous dosing provides a constant supply of drug to either the dosing comp
 On the other hand, subcutaneous dosing supplies the drug in instantaneous bursts of specified magnitudes, at specified points in time.
 
 ## Installation
-To install this package, we recommend that you first set up a virtual environment from the directory containing this file.
-
-Then install this project:
+To install this package, we recommend that you first clone this repository to your local machine. To do this, enter the following in the command line:
 ```bash
-pip install -e .[dev,docs]
+git clone https://github.com/laraherriott/PK-project.git
+cd PK-project
+```
+
+Then set up a virtual environment from the directory containing this file, and activate the virtual environment, using:
+
+```bash
+python3 -m pip install --user virtualenv
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Then install this project, after upgrading the build tools.
+```bash
+pip install --upgrade pip setuptools wheel
+pip install  .[dev,docs]
 ```
 
 ## Using the package
@@ -37,7 +55,7 @@ from visualization import visualization
 import matplotlib.pylab as plt
 
 model1 = Model(comp_num=2, V_c=3, V_p=[3, 4], Q_p=[6, 9], CL=7, dose_comp=9, constinput=0, centerpoints=[1, 2, 3, 4], magnitudes=[1, 2, 3, 4])
-model2 = Model(comp_num = 1, V_c = 3, V_p = [3,4], Q_p = [6,9], CL = 7, dose_comp = 9, constinput=5)
+model2 = Model(comp_num = 1, V_c = 3, V_p = [3], Q_p = [6], CL = 7, dose_comp = 9, constinput=5)
 
 models = [model1, model2]
 
